@@ -5,7 +5,7 @@ filetype off
 if has("win32")
     set rtp+=$VIM/vim-config/vim/bundle/Vundle.vim
 elseif has("unix")
-    set rtp+=./vim/bundle/Vundle.vim
+    set rtp+=~/.vim/bundle/Vundle.vim
 endif
 
 call vundle#begin()
