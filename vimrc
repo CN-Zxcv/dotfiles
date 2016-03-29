@@ -49,7 +49,7 @@ if has("win32")
 endif
 
 "行号"
-set nu!
+set nu
 "搜索忽略大小写"
 set ignorecase
 "配色"
@@ -57,3 +57,11 @@ colorscheme desert
 "高亮当前行"
 set cursorline
 hi Cursorline cterm=NONE ctermfg=NONE ctermbg=0
+"tab转换为4空格"
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+"输入tab时执行空格转换"
+set expandtab
+"自动缩进"
+set ai
