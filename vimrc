@@ -2,7 +2,12 @@
 set nocompatible
 
 filetype off
-set rtp+=vim/bundle/Vundle.vim
+if has("win32")
+	set rtp+=$VIM/vim-config/vim/bundle/Vundle.vim
+elseif has("unix")
+	set rtp+=./vim/bundle/Vundle.vim
+endif
+
 call vundle#begin()
 	"插件管理"
 	Plugin 'VundleVim/Vundle.vim'
@@ -23,6 +28,25 @@ filetype plugin indent on
 " vnoremap <silent> ge "gy:vimgrep /<C-R>g/ % \|copen<cr>
 " nnoremap ge :vimgrep // % \|copen<left><left><left><left><left><left><left><left><left><left>
 " cnoremap grep vimgrep // % \|cw<left>
+
+if has("win32")
+	"windows gvim 兼容设置"
+	source $VIMRUNTIME/vimrc_example.vim
+	"windows快捷键"
+	behave mswin
+	"环境编码"
+	set enc=utf-8
+	"提示信息编码"
+	language message zh_CN.utf-8
+	"自动识别编码"
+	set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+	"gui字体"
+	set guifont=Courier_New:h11
+	"gui快捷图标栏"
+	set guioptions-=T
+	"gui菜单栏"
+	set go=
+endif
 
 "行号"
 set nu!
