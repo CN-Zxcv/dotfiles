@@ -68,7 +68,7 @@ set ai
 "切换模式自动保存"
 au InsertLeave ** write
 "外部更改自动重读文件"
-set autoread
+"set autoread
 "自动切换目录到当前文件所在目录"
-"set autochdir
-set tags=tags
+set autochdir
+set tags=tags;
