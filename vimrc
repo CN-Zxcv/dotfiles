@@ -8,6 +8,17 @@ elseif has("unix")
     set rtp+=~/.vim/bundle/Vundle.vim
 endif
 
+fu! FindProjectRoot(lookfor)
+    let pathmaker = '%:p'
+    while (len(expand(pathmaker)) > len(expand(pathmaker.":h")))
+        let pathmaker = pathmaker.':h'
+        if len(split(globpath(expand(pathmaker), a:lookfor), "\n")) >= 1
+            return expand(pathmaker)
+        endif
+    endw
+    return expand("%:p:h")
+endf
+
 call vundle#begin()
     "插件管理"
     Plugin 'VundleVim/Vundle.vim'
@@ -17,6 +28,9 @@ call vundle#begin()
     " nnoremap \ :call bufferhint#LoadPrevious()<CR>
     "文件搜索"
     Plugin 'ctrlpvim/ctrlp.vim'
+    let g:ctrlp_working_path_mode = ''
+    let g:ctrlp_map = ''
+    nnoremap <silent> <C-P> :CtrlP <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
     "快速跳行"
     Plugin 'easymotion/vim-easymotion'
     map f <Plug>(easymotion-prefix)
@@ -24,10 +38,6 @@ call vundle#begin()
     Plugin 'junegunn/vim-easy-align'
 call vundle#end()
 filetype plugin indent on
-
-" vnoremap <silent> ge "gy:vimgrep /<C-R>g/ % \|copen<cr>
-" nnoremap ge :vimgrep // % \|copen<left><left><left><left><left><left><left><left><left><left>
-" cnoremap grep vimgrep // % \|cw<left>
 
 if has("win32")
     "windows gvim 兼容设置"
@@ -72,3 +82,42 @@ au InsertLeave ** write
 "自动切换目录到当前文件所在目录"
 set autochdir
 set tags=tags;
+
+"
+let Author="Hx"
+let true=1
+let false=0
+function AddLine(content)
+    call cursor(line("."), 0)
+    call append(line(".") - 1, a:content)
+    call cursor(line("."), 65536)
+endfunction
+
+function AddWords(content)
+    call setline(line("."), getline(".").a:content)
+    call cursor(line("."), 65536)
+endfunction
+
+function Note(prefix, prt)
+    let b:str = strftime(a:prefix." ".g:Author."@%Y-%m-%d:")
+    if a:prt 
+        call AddWords(b:str)
+    else
+        return b:str
+    endif
+endfunction
+
+function Notice(prefix)
+    call AddLine(a:prefix." --.-----------------------------------------------------------------------.--")
+    call AddLine(Note(a:prefix, g:false))
+    call AddLine(a:prefix." --'-----------------------------------------------------------------------'--")
+    call cursor(line(".") - 2, 65536)
+endfunction
+
+autocmd FileType,BufRead,BufEnter *.*,vim exec ":call Init()"
+function Init()
+    if &filetype == 'lua'
+        iabbrev --n <C-o>:call Note("--", true)<CR>
+        iabbrev --l <C-o>:call Notice("--")<CR>
+    endif
+endfunction
