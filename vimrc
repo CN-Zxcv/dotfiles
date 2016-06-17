@@ -30,12 +30,18 @@ call vundle#begin()
     Plugin 'ctrlpvim/ctrlp.vim'
     let g:ctrlp_working_path_mode = ''
     let g:ctrlp_map = ''
+    "let g:ctrlp_user_command = 'ag %s --nocolor --nogroup --hidden --ignore .git --ignore out --ignore .svn --ignore .hg --ignore .DS_Store -g ""'
     nnoremap <silent> <C-P> :CtrlP <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
     "快速跳行"
     Plugin 'easymotion/vim-easymotion'
     map f <Plug>(easymotion-prefix)
     "对齐"
     Plugin 'junegunn/vim-easy-align'
+    "搜索"
+    " Plugin 'dyng/ctrlsf'
+    Plugin 'rking/ag.vim'
+    com -nargs=* -complete=file Agg call ag#Ag('grep<bang>', '<q-args>'.' '.FindProjectRoot('.ctrlp'))
+    
 call vundle#end()
 filetype plugin indent on
 
