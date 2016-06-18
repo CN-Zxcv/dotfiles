@@ -88,6 +88,8 @@ au InsertLeave ** write
 "自动切换目录到当前文件所在目录"
 set autochdir
 set tags=tags;
+"禁止备份文件"
+set nobackup
 
 "
 let Author="Hx"
