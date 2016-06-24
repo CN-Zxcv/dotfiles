@@ -41,9 +41,10 @@ call vundle#begin()
     " Plugin 'dyng/ctrlsf'
     Plugin 'rking/ag.vim'
     com -nargs=* -complete=file Agg call ag#Ag('grep<bang>', '<q-args>'.' '.FindProjectRoot('.ctrlp'))
+    "com -nargs=* Agg vimgrep "<args>" <c-r>=FindProjectRoot('.ctrlp'))<CR><CR>
     "目录浏览"
     Plugin 'scrooloose/nerdtree'
-    nnoremap <silent> <C-O> :NERDTreeToggle <CR>
+    map <silent> <C-O> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
 call vundle#end()
 filetype plugin indent on
 
