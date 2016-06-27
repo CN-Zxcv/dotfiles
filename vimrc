@@ -44,7 +44,7 @@ call vundle#begin()
     "com -nargs=* Agg vimgrep "<args>" <c-r>=FindProjectRoot('.ctrlp'))<CR><CR>
     "目录浏览"
     Plugin 'scrooloose/nerdtree'
-    map <silent> <C-O> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
+    map <silent> <C-N> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
 call vundle#end()
 filetype plugin indent on
 
