@@ -93,6 +93,12 @@ set autochdir
 set tags=tags;
 "禁止备份文件"
 set nobackup
+"设置切换tab快捷键"
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+
 
 "
 let Author="Hx"
