@@ -19,6 +19,16 @@ fu! FindProjectRoot(lookfor)
     return expand("%:p:h")
 endf
 
+"better FindProjectRoot ??
+"function! FindConfig(prefix, what, where)
+"    let cfg = findfile(a:what, escape(a:where, ' ') . ';')
+"    return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
+"endfunction
+"
+"autocmd FileType javascript let b:syntastic_javascript_jscs_args =
+"            \ get(g:, 'syntastic_javascript_jscs_args', '') .
+"            \ FindConfig('-c', '.jscsrc', expand('<afile>:p:h', 1))
+
 call vundle#begin()
     "插件管理"
     Plugin 'VundleVim/Vundle.vim'
@@ -45,6 +55,16 @@ call vundle#begin()
     "目录浏览"
     Plugin 'scrooloose/nerdtree'
     map <silent> <C-N> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
+    "语法检查"
+    "Plugin 'vim-syntastic/syntastic'
+    "set statusline+=%#warningmsg#
+    "set statusline+=%{SyntasticStatusFlag()}
+    "set statusline+=%*
+    "let g:syntastic_always_populate_loc_list = 1
+    "let g:syntastic_auto_loc_list = 2
+    "let g:syntastic_lua_checkers = ["luac", "luacheck"]
+    "let g:syntastic_check_on_open = 1
+    "let g:syntastic_check_on_wq = 1
 call vundle#end()
 filetype plugin indent on
 
@@ -87,7 +107,7 @@ set ai
 "切换模式自动保存"
 au InsertLeave ** write
 "外部更改自动重读文件"
-"set autoread
+set autoread
 "自动切换目录到当前文件所在目录"
 set autochdir
 set tags=tags;
