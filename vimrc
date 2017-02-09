@@ -8,7 +8,7 @@ elseif has("unix")
     set rtp+=~/.vim/bundle/Vundle.vim
 endif
 
-fu! FindProjectRoot(lookfor)
+fu! FindProjectRoot(lookfor, default)
     let pathmaker = '%:p'
     while (len(expand(pathmaker)) > len(expand(pathmaker.":h")))
         let pathmaker = pathmaker.':h'
@@ -16,18 +16,12 @@ fu! FindProjectRoot(lookfor)
             return expand(pathmaker)
         endif
     endw
-    return expand("%:p:h")
+    return a:default
 endf
 
-"better FindProjectRoot ??
-"function! FindConfig(prefix, what, where)
-"    let cfg = findfile(a:what, escape(a:where, ' ') . ';')
-"    return cfg !=# '' ? ' ' . a:prefix . ' ' . shellescape(cfg) : ''
-"endfunction
-"
-"autocmd FileType javascript let b:syntastic_javascript_jscs_args =
-"            \ get(g:, 'syntastic_javascript_jscs_args', '') .
-"            \ FindConfig('-c', '.jscsrc', expand('<afile>:p:h', 1))
+fu! GetCurPath()
+    return expand("%:p:h")
+endf
 
 call vundle#begin()
     "插件管理"
@@ -41,7 +35,7 @@ call vundle#begin()
     let g:ctrlp_working_path_mode = ''
     let g:ctrlp_map = ''
     "let g:ctrlp_user_command = 'ag %s --nocolor --nogroup --hidden --ignore .git --ignore out --ignore .svn --ignore .hg --ignore .DS_Store -g ""'
-    nnoremap <silent> <C-P> :CtrlP <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
+    nnoremap <silent> <C-P> :CtrlP <c-r>=FindProjectRoot('.ctrlp', GetCurPath())<CR><CR>
     "快速跳行"
     Plugin 'easymotion/vim-easymotion'
     map f <Plug>(easymotion-prefix)
@@ -50,21 +44,28 @@ call vundle#begin()
     "搜索"
     " Plugin 'dyng/ctrlsf'
     Plugin 'rking/ag.vim'
-    com -nargs=* -complete=file Agg call ag#Ag('grep<bang>', '<q-args>'.' '.FindProjectRoot('.ctrlp'))
+    com -nargs=* -complete=file Agg call ag#Ag('grep<bang>', '<q-args>'.' '.FindProjectRoot('.ctrlp', GetCurPath()))
     "com -nargs=* Agg vimgrep "<args>" <c-r>=FindProjectRoot('.ctrlp'))<CR><CR>
     "目录浏览"
     Plugin 'scrooloose/nerdtree'
-    map <silent> <C-N> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp')<CR><CR>
+    map <silent> <C-N> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp', GetCurPath())<CR><CR>
     "语法检查"
-    "Plugin 'vim-syntastic/syntastic'
-    "set statusline+=%#warningmsg#
-    "set statusline+=%{SyntasticStatusFlag()}
-    "set statusline+=%*
-    "let g:syntastic_always_populate_loc_list = 1
-    "let g:syntastic_auto_loc_list = 2
-    "let g:syntastic_lua_checkers = ["luac", "luacheck"]
-    "let g:syntastic_check_on_open = 1
-    "let g:syntastic_check_on_wq = 1
+    Plugin 'vim-syntastic/syntastic'
+    set statusline+=%#warningmsg#
+    if exists("SyntasticStatusFlag")
+        set statusline+=%{SyntasticStatusFlag()}
+    endif
+    set statusline+=%*
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 2
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 1
+    "有配置时才启用检查"
+    if FindProjectRoot(".luacheckrc", "") != "" 
+        let g:syntastic_lua_checkers = ["luac", "luacheck"]
+        let g:syntastic_lua_luacheck_args = "--config " . FindProjectRoot(".luacheckrc", GetCurPath()) . "/.luacheckrc"
+    endif
+
 call vundle#end()
 filetype plugin indent on
 
