@@ -41,6 +41,9 @@ call vundle#begin()
     map f <Plug>(easymotion-prefix)
     "对齐"
     Plugin 'junegunn/vim-easy-align'
+    let g:easy_align_delimiters = {
+    \ '-' : {'pattern': '\ --'},
+    \ }
     "搜索"
     " Plugin 'dyng/ctrlsf'
     Plugin 'rking/ag.vim'
