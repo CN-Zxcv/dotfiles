@@ -157,7 +157,7 @@ endfunction
 
 autocmd FileType,BufRead,BufEnter *.*,vim exec ":call Init()"
 function Init()
-    if &filetype == 'lua'
+    if &filetype == 'lua' || &filetype == 'haskell'
         iabbrev --n <C-o>:call Note("--", true)<CR>
         iabbrev --l <C-o>:call Notice("--")<CR>
     endif
