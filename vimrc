@@ -42,7 +42,7 @@ call vundle#begin()
     "对齐"
     Plugin 'junegunn/vim-easy-align'
     let g:easy_align_delimiters = {
-    \ '-' : {'pattern': '--', 'ignore_groups':['!Comment']},
+    \ '-' : {'pattern' : '--', 'ignore_groups' : ['!Comment'], 'filter' : 'g/^.*\S\+.*--/'},
     \ }
     "搜索"
     " Plugin 'dyng/ctrlsf'
