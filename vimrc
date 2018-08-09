@@ -122,6 +122,8 @@ nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
+"第N列高亮"
+set colorcolumn=100
 
 
 "
