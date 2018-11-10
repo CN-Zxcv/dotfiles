@@ -69,6 +69,10 @@ call vundle#begin()
         let g:syntastic_lua_luacheck_args = "--config " . FindProjectRoot(".luacheckrc", GetCurPath()) . "/.luacheckrc"
     endif
 
+    "注释"
+    Plugin 'tpope/vim-commentary'
+    nmap <C-_> <Plug>Commentary
+
 call vundle#end()
 filetype plugin indent on
 
