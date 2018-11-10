@@ -71,7 +71,8 @@ call vundle#begin()
 
     "注释"
     Plugin 'tpope/vim-commentary'
-    nmap <C-_> <Plug>Commentary
+    vmap <C-_> <Plug>Commentary
+    ""autocmd FileType lua setlocal commentstring="-- %s"
 
 call vundle#end()
 filetype plugin indent on
