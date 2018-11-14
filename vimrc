@@ -29,7 +29,7 @@ call vundle#begin()
     "查看和切换缓冲区"
     Plugin 'bsdelf/bufferhint' 
     nnoremap - :call bufferhint#Popup()<CR>
-    " nnoremap \ :call bufferhint#LoadPrevious()<CR>
+    nnoremap \ :call bufferhint#LoadPrevious()<CR>
     "文件搜索"
     Plugin 'ctrlpvim/ctrlp.vim'
     let g:ctrlp_working_path_mode = ''
@@ -129,6 +129,8 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 "第N列高亮"
 set colorcolumn=100
+" let &colorcolumn='80,'.join(range(120,300), ',')
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 
 "
