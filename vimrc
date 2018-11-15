@@ -73,6 +73,7 @@ call vundle#begin()
     Plugin 'tpope/vim-commentary'
     vmap <C-_> <Plug>Commentary
     ""autocmd FileType lua setlocal commentstring="-- %s"
+    autocmd FileType c setlocal commentstring=//\ %s
 
 call vundle#end()
 filetype plugin indent on
