@@ -42,8 +42,16 @@ call vundle#begin()
     "对齐"
     Plugin 'junegunn/vim-easy-align'
     let g:easy_align_delimiters = {
-    \ '-' : {'pattern' : '--', 'ignore_groups' : ['!Comment'], 'filter' : 'g/^.*\S\+.*--/'},
-    \ }
+                \ '-' : {'pattern' : '--', 
+                \       'ignore_groups' : ['!Comment'], 
+                \       'filter' : 'g/^.*\S\+.*--/',
+                \ },
+                \ '/': {
+                \     'pattern': '\/\/',
+                \     'ignore_groups':   ['!Comment'],
+                \     'filter' : 'g/^.*\S\+.*\/\//',
+                \ },
+                \ }
     "搜索"
     " Plugin 'dyng/ctrlsf'
     Plugin 'rking/ag.vim'
@@ -52,6 +60,8 @@ call vundle#begin()
     "目录浏览"
     Plugin 'scrooloose/nerdtree'
     map <silent> <C-N> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp', GetCurPath())<CR><CR>
+    " 打开文件时, 按照 viminfo 保存的上次关闭时的光标位置重新设置光标
+    au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
     "语法检查"
     Plugin 'vim-syntastic/syntastic'
     set statusline+=%#warningmsg#
@@ -129,7 +139,7 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 "第N列高亮"
-set colorcolumn=100
+set colorcolumn=80,100
 " let &colorcolumn='80,'.join(range(120,300), ',')
 highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
