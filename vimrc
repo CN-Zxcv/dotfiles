@@ -75,6 +75,9 @@ call vundle#begin()
     let g:syntastic_check_on_wq = 1
     let g:syntastic_cpp_check_header = 1
     let g:syntastic_c_check_header = 1
+    let g:syntastic_cpp_config_file = '.syntastic'
+    let g:syntastic_c_config_file = '.syntastic'
+
     "有配置时才启用检查"
     if FindProjectRoot(".luacheckrc", "") != "" 
         let g:syntastic_lua_checkers = ["luac", "luacheck"]
