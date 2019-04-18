@@ -186,5 +186,8 @@ function Init()
     if &filetype == 'lua' || &filetype == 'haskell'
         iabbrev --n <C-o>:call Note("--", true)<CR>
         iabbrev --l <C-o>:call Notice("--")<CR>
+    elseif &filetype == 'c' || &filetype == 'cpp'
+        iabbrev //n <C-o>:call Note("//", true)<CR>
+        iabbrev //l <C-o>:call Notice("//")<CR>
     endif
 endfunction
