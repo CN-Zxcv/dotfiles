@@ -1,0 +1,13 @@
+﻿Windows Registry Editor Version 5.00
+
+; 通过 Code(WSL) 打开
+
+[-HKEY_CLASSES_ROOT\Directory\shell\VSCode(WSL)]
+
+[-HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode(WSL)]
+
+[-HKEY_CLASSES_ROOT\Directory\LibraryFolder\shell\VSCode(WSL)]
+
+[-HKEY_CLASSES_ROOT\Drive\shell\VSCode(WSL)]
+
+[-HKEY_CLASSES_ROOT\*\shell\VSCode(WSL)]

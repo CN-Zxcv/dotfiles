@@ -1,0 +1,54 @@
+﻿Windows Registry Editor Version 5.00
+
+; 通过 Code(WSL) 打开
+
+; [HKEY_CLASSES_ROOT\Directory\shell\VSCode(WSL)]
+; @="通过 Code(WSL) 打开"
+; "Icon"="C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe"
+; ; "Icon"="C:\\Users\\Lantern\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+
+; [HKEY_CLASSES_ROOT\Directory\shell\VSCode(WSL)\command]
+; @="C:\Users\Hx\AppData\Local\Programs\Microsoft VS Code\Code.exe" --remote wsl+ubuntu
+; ; @="wsl.exe code ."
+
+; 右键文件夹
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode(WSL)]
+@="通过 Code(WSL) 打开"
+"Icon"="C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe"
+; "Icon"="C:\\Users\\Lantern\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode(WSL)\command]
+; @="wsl /mnt/c/Users/Hx/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe --remote wsl+ubuntu $(wslpath '%V')"
+@="wsl /mnt/c/Users/Hx/AppData/Local/Programs/Microsoft\\ VS\\ Code/Code.exe --remote wsl+ubuntu $(wslpath '%V')"
+
+; [HKEY_CLASSES_ROOT\Directory\LibraryFolder\shell\VSCode(WSL)]
+; @="通过 Code(WSL) 打开"
+; "Icon"="C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe"
+; ; "Icon"="C:\\Users\\Lantern\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+
+; [HKEY_CLASSES_ROOT\Directory\LibraryFolder\shell\VSCode(WSL)\command]
+; @="wsl.exe code ."
+
+; [HKEY_CLASSES_ROOT\Drive\shell\VSCode(WSL)]
+; @="通过 Code(WSL) 打开"
+; "Icon"="C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe"
+; ; "Icon"="C:\\Users\\Lantern\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+
+; [HKEY_CLASSES_ROOT\Drive\shell\VSCode(WSL)\command]
+; @="C:\Users\Hx\AppData\Local\Programs\Microsoft VS Code\Code.exe" --remote wsl+ubuntu
+; ; @="wsl.exe code ."
+
+; [HKEY_CLASSES_ROOT\*\shell\VSCode(WSL)]
+; @="通过 Code(WSL) 打开"
+; "Icon"="C:\\Program Files (x86)\\Microsoft VS Code\\Code.exe"
+; ; "Icon"="C:\\Users\\Lantern\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+; 
+; [HKEY_CLASSES_ROOT\*\shell\VSCode(WSL)\command]
+; @="wsl wslpath -u "%1" |xargs code"
+
+; wsl /mnt/c/Users/Hx/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe --remote wsl+ubuntu $(wslpath "%V")
+; mshta vbscript:Execute("CreateObject(""Wscript.Shell"").Run(""wsl.exe code $(wslpath '%V')"", 0, False)(window.close)")
+
+; reg add "HKEY_CLASSES_ROOT\Directory\shell\WSLVSCode\command" /t REG_EXPAND_SZ /d "wsl.exe code `wslpath '%1'`"
+; reg add "HKEY_CLASSES_ROOT\Directory\shell\WSLVSCode" /t REG_EXPAND_SZ /d "Open in WSL VSCode"
+; reg add "HKEY_CLASSES_ROOT\Directory\shell\WSLVSCode" /v Icon /t REG_EXPAND_SZ /d "C:\Users\User\AppData\Local\Programs\Microsoft VS Code\Code.exe"

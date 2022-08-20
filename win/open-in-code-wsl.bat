@@ -1,0 +1,2 @@
+
+mshta vbscript:Execute("CreateObject(""Wscript.Shell"").Run(""wsl.exe /mnt/c/Users/Hx/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe --remote wsl+ubuntu $(wslpath '%1')"", 0, False)(window.close)")
