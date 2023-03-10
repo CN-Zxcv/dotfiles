@@ -1,50 +1,43 @@
 "vi兼容"
 set nocompatible
 
-filetype off
-if has("win32")
-    set rtp+=$VIM/vim-config/vim/bundle/Vundle.vim
-elseif has("unix")
-    set rtp+=~/.vim/bundle/Vundle.vim
-endif
-
-call vundle#begin()
+call plug#begin()
     "插件管理"
-    Plugin 'VundleVim/Vundle.vim'
+    Plug 'VundleVim/Vundle.vim'
     "查看和切换缓冲区"
-    Plugin 'bsdelf/bufferhint' 
+    Plug 'CN-Zxcv/bufferhint' 
     "文件搜索"
-    " Plugin 'ctrlpvim/ctrlp.vim'
-    Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    " Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     "快速跳行"
-    Plugin 'easymotion/vim-easymotion'
+    " Plug 'easymotion/vim-easymotion'
     "对齐"
-    Plugin 'junegunn/vim-easy-align'
+    Plug 'junegunn/vim-easy-align'
     "搜索"
-    " Plugin 'dyng/ctrlsf'
-    " Plugin 'rking/ag.vim'
-    Plugin 'jremmen/vim-ripgrep'
+    " Plug 'dyng/ctrlsf'
+    " Plug 'rking/ag.vim'
+    Plug 'jremmen/vim-ripgrep'
     "目录浏览"
-    Plugin 'scrooloose/nerdtree'
+    Plug 'scrooloose/nerdtree'
     "语法检查"
-    Plugin 'vim-syntastic/syntastic'
+    Plug 'vim-syntastic/syntastic'
     "注释"
-    Plugin 'tpope/vim-commentary'
+    Plug 'tpope/vim-commentary'
     "AI代码补全"
-    Plugin 'codota/tabnine-vim'
+    Plug 'codota/tabnine-vim'
 
-call vundle#end()
-filetype plugin indent on
+call plug#end()
 
 " --------------------------------------
 " 插件配置
 
 " easymotion/vim-easymotion
-map f <Plug>(easymotion-prefix)
+" map f <Plug>(easymotion-prefix)
 
 " bsdelf/bufferhint
 nnoremap - :call bufferhint#Popup()<CR>
-nnoremap \ :call bufferhint#LoadPrevious()<CR>
+" nnoremap \ :call bufferhint#LoadPrevious()<CR>
+let g:bufferhint_SortMode = 1
 
 " ctrlpvim/ctrlp.vim
 " let g:ctrlp_working_path_mode = ''
@@ -76,6 +69,14 @@ let g:easy_align_delimiters = {
 
 " jremmen/vim-ripgrep
 nnoremap <S-f> :Rg <cword><cr>
+" 定义的地方, function cword( |^cword =|[ :.]cword =
+autocmd FileType,BufRead,BufEnter lua nnoremap <c-]> :Rg 'function.*[ :.]*<cword> *\(\\|^<cword> *=\\| <cword> *='<cr>
+" 调用的地方 :cword( | .cword( | = cword(
+autocmd FileType,BufRead,BufEnter lua nnoremap <c-\> :Rg '[:.]<cword>\(\\|= *<cword> *\('<cr>
+" 对象new的地方 :cword.new | cword.create
+autocmd FileType,BufRead,BufEnter lua nnoremap <c-t> :Rg '<cword>.create\\|<cword>.new'<cr>
+" 对象定义和继承的地方 module_class.*cword
+autocmd FileType,BufRead,BufEnter lua nnoremap <c-y> :Rg 'module_class.*[ (]+<cword>'<cr>
 
 " scrooloose/nerdtree
 map <silent> <C-N> :NERDTreeToggle <c-r>=FindProjectRoot('.ctrlp', GetCurPath())<CR><CR>
@@ -211,9 +212,9 @@ function Note(prefix, prt)
 endfunction
 
 function Notice(prefix)
-    call AddLine(a:prefix." --.-----------------------------------------------------------------------.--")
+    call AddLine(a:prefix." {----------------------------------------------------------------")
     call AddLine(Note(a:prefix, g:false))
-    call AddLine(a:prefix." --'-----------------------------------------------------------------------'--")
+    call AddLine(a:prefix." }----------------------------------------------------------------")
     call cursor(line(".") - 2, 65536)
 endfunction
 
@@ -222,8 +223,12 @@ function Init()
     if &filetype == 'lua' || &filetype == 'haskell'
         iabbrev --n <C-o>:call Note("--", true)<CR>
         iabbrev --l <C-o>:call Notice("--")<CR>
-    elseif &filetype == 'c' || &filetype == 'cpp'
+    elseif &filetype == 'c' || &filetype == 'cpp' || &filetype == 'proto'
         iabbrev //n <C-o>:call Note("//", true)<CR>
         iabbrev //l <C-o>:call Notice("//")<CR>
+    elseif &filetype == 'python'
+        set list
+        iabbrev #n <C-o>:call Note("#", true)<CR>
+        iabbrev #l <C-o>:call Notice("#")<CR>
     endif
 endfunction
