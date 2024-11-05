@@ -61,7 +61,7 @@ require("lazy").setup({
 
 	-- 主题
 	"michalbachowski/vim-wombat256mod",
-	
+
 	-- 侧边文件管理
 	{
 		"nvim-tree/nvim-tree.lua",
@@ -78,6 +78,15 @@ require("lazy").setup({
 			require("config.nvim-telescope")
         end,
     },
+
+    -- 最近打开的文件
+    {
+        -- "ThanhKhoaIT/moiday.nvim",
+        "cn-zxcv/moiday.nvim",
+        config = function()
+            require('config.nvim-moiday')
+        end,
+    }
 
 })
 
