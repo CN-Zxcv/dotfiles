@@ -36,3 +36,6 @@ vim.keymap.set('n', '-', ':MoidayFiles<CR>', opts)
 vim.keymap.set('v', '<', '<gv', opts)
 vim.keymap.set('v', '>', '>gv', opts)
 
+-- 代码注释
+vim.keymap.set('n', '<C-/>', ':normal gcc<CR>', opts)
+vim.keymap.set('v', '<C-/>', ':normal gvgc<CR>', opts)

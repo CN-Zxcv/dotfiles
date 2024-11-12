@@ -1,6 +1,6 @@
 
 require('moiday').setup({
-    maxRecentFiles = 3,
+    maxRecentFiles = 6,
     disableStorage = true,
     closeKeyMap = '-',
 })
