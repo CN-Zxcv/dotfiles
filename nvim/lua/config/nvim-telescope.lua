@@ -1,6 +1,7 @@
 
 local actions = require('telescope.actions')
-require('telescope').setup({
+local telescope = require('telescope')
+telescope.setup({
     defaults = {
         mappings = {
             i = {
@@ -9,10 +10,10 @@ require('telescope').setup({
             }
         },
         file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '.log'},
-        path_display = {'truncate'},
-
+        path_display = {'filename_first', 'smart'},
     }
 })
+telescope.load_extension('live_grep_args')
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
@@ -21,26 +22,28 @@ vim.keymap.set('n', '<S-f>', builtin.grep_string, {})
 
 local expand = vim.fn.expand
 
+-- lua 搜索快捷键
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "lua",
     callback = function()
-        -- 生成查询代码
-        local function makestr(reg)
-            local str = string.format([[:lua 
-            local reg = '%s'
-            local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
-            require('telescope.builtin').live_grep({ default_text = str })
-            <CR>]], reg)
-            return string.gsub(str, '\n', ' ')
+        -- IGG KEYMAPS --
+        do
+            -- 方法/值定义的地方
+            local function find_def()
+                local reg = 'function.*[ :.]<cword> *\\(|[ .:^]<cword> *=|message <cword>[ {]'
+                local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
+                require('telescope.builtin').live_grep({ default_text = str })
+            end
+            vim.keymap.set('n', '<C-]>', find_def, {})
+
+            -- 方法调用的地方
+            local function find_call()
+                local reg = '-P "(?<!function )<cword>\\(.*\\)"'
+                local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
+                telescope.extensions.live_grep_args.live_grep_args({ default_text = str })
+            end
+            vim.keymap.set('n', '<C-\\>', find_call, {})
         end
-
-        -- 定义的地方
-        local reg = 'function.*[ :.]<cword> *\\\\(|[ .:^]<cword> *=|message <cword>[ {]'
-        vim.keymap.set('n', '<C-]>', makestr(reg), {})
-
-        -- 调用的地方
-        local reg = '[ .:^]<cword>\\\\(.*\\\\)'
-        vim.keymap.set('n', '<C-\\>', makestr(reg), {})
 
     end,
 })
