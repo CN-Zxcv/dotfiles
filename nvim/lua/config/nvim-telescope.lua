@@ -7,6 +7,7 @@ telescope.setup({
             i = {
                 ['<C-j>'] = actions.move_selection_next,
                 ['<C-k>'] = actions.move_selection_previous,
+                ['<esc>'] = actions.close,
             }
         },
         file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '.log'},
