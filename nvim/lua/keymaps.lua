@@ -37,5 +37,7 @@ vim.keymap.set('v', '<', '<gv', opts)
 vim.keymap.set('v', '>', '>gv', opts)
 
 -- 代码注释
-vim.keymap.set('n', '<C-/>', ':normal gcc<CR>', opts)
-vim.keymap.set('v', '<C-/>', ':normal gvgc<CR>', opts)
+-- <C-_> == (ctrl /)
+-- 不知道为啥不能直接用 '/'; (ctrl v) + (ctrl /) 看到的输出是 _
+vim.keymap.set('n', '<C-_>', ':normal gcc<CR>', opts)
+vim.keymap.set('v', '<C-_>', ':normal gvgc<CR>', opts)
