@@ -10,11 +10,25 @@ telescope.setup({
                 ['<esc>'] = actions.close,
             }
         },
-        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '.log'},
+        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '.log', '.svn'},
         path_display = {'filename_first', 'smart'},
-    }
+        vimgrep_arguments = { 
+            'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', 
+            -- 忽略指定目录
+            '-g', '!dbdata/*', '-g', '!log/*', '-g', '!.git/*', '-g', '!.svn/*',
+        },
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = 'smart_case'
+        }
+    },
 })
 telescope.load_extension('live_grep_args')
+telescope.load_extension('fzf')
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
@@ -31,7 +45,7 @@ vim.api.nvim_create_autocmd("FileType", {
         do
             -- 方法/值定义的地方
             local function find_def()
-                local reg = 'function.*[ :.]<cword> *\\(|[ .:^]<cword> *=|message <cword>[ {]'
+                local reg = 'function.*[ :.]<cword> *\\(|^<cword> *=|[ .:]<cword> *=|message <cword>[ {]'
                 local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
                 require('telescope.builtin').live_grep({ default_text = str })
             end
