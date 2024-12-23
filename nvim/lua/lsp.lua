@@ -1,11 +1,11 @@
 require('mason').setup({
-	ui = {
-		icons = {
-			package_installed = "✓",
-			package_pending = "➜",
-			package_uninstalled = "✗"
-		}
-	}
+	-- ui = {
+	-- 	icons = {
+	-- 		package_installed = "✓",
+	-- 		package_pending = "➜",
+	-- 		package_uninstalled = "✗"
+	-- 	}
+	-- }
 })
 
 require('mason-lspconfig').setup({
@@ -61,4 +61,14 @@ end
 -- 2. add configuration below
 lspconfig.pylsp.setup({
 	on_attach = on_attach,
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = {
+                    -- E501: line too long
+                    ignore = {'E501'},
+                }
+            }
+        }
+    }
 })
