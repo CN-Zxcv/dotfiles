@@ -21,8 +21,10 @@ require("lazy").setup({
 			"hrsh7th/cmp-buffer", -- buffer auto-completion
 			"hrsh7th/cmp-path", -- path auto-completion
 			"hrsh7th/cmp-cmdline", -- cmdline auto-completion
-			"L3MON4D3/LuaSnip",
+			-- "L3MON4D3/LuaSnip",
 			"onsails/lspkind.nvim",
+            -- 代码片段
+            "dcampos/cmp-snippy",
 		},
 		config = function()
 			require("config.nvim-cmp")
@@ -82,7 +84,6 @@ require("lazy").setup({
 			require("config.nvim-telescope")
         end,
     },
-
     -- 最近打开的文件
     {
         -- "ThanhKhoaIT/moiday.nvim",
@@ -90,6 +91,12 @@ require("lazy").setup({
         config = function()
             require('config.nvim-moiday')
         end,
+    },
+    {
+        "dcampos/nvim-snippy",
+        -- config = function()
+        --     require('config.nvim-snippy')
+        -- end,
     }
 
 })

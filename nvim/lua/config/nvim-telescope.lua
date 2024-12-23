@@ -10,12 +10,12 @@ telescope.setup({
                 ['<esc>'] = actions.close,
             }
         },
-        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '.log', '.svn'},
-        path_display = {'filename_first', 'smart'},
+        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '*.log', '.svn'},
+        path_display = {'filename_first', shorten={exclude={-1, -2, -3}}},
         vimgrep_arguments = { 
             'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', 
             -- 忽略指定目录
-            '-g', '!dbdata/*', '-g', '!log/*', '-g', '!.git/*', '-g', '!.svn/*',
+            '-g', '!dbdata', '-g', '!log', '-g', '!.git', '-g', '!.svn',
         },
     },
     extensions = {
