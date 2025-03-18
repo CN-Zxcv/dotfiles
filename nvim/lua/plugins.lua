@@ -97,7 +97,36 @@ require("lazy").setup({
         -- config = function()
         --     require('config.nvim-snippy')
         -- end,
+    },
+    -- 修改默认的注释符号
+    -- https://github.com/neovim/neovim/pull/29085
+    -- 已经修改了，但是发布版本还没更新, 这里找个插件处理
+    {
+        "folke/ts-comments.nvim",
+        -- opts = {
+        --     lang = {
+        --
+        --     }
+        -- },
+        event = "VeryLazy",
+        enabled = vim.fn.has("nvim-0.10.0") == 1,
+    },
+    -- 代码对齐
+    -- {
+    --     "Vonr/align.nvim",
+    --     branch = "v2",
+    --     lazy = true,
+    --     init = function()
+    --         require("config.nvim-align")
+    --     end
+    -- },
+    {
+        "junegunn/vim-easy-align",
+        config = function()
+            require('config.nvim-align')
+        end,
     }
+
 
 })
 
