@@ -27,3 +27,14 @@ vim.opt.incsearch = true -- search as characters are entered
 vim.opt.hlsearch = false -- do not highlight matches
 vim.opt.ignorecase = true -- ignore case in searches by default
 vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entered
+
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = '*',
+    callback = function()
+        local ft = vim.bo.filetype
+        if ft == 'c' or ft == 'cpp' then
+            vim.bo.commentstring = "// %s"
+        end
+    end
+})
