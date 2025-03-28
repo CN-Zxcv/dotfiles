@@ -79,17 +79,11 @@ require("lazy").setup({
             'nvim-lua/plenary.nvim', 
             'nvim-telescope/telescope-live-grep-args.nvim', 
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+            -- 'smartpde/telescope-recent-files',
+            'mollerhoj/telescope-recent-files.nvim',
         },
         config = function()
 			require("config.nvim-telescope")
-        end,
-    },
-    -- 最近打开的文件
-    {
-        -- "ThanhKhoaIT/moiday.nvim",
-        "cn-zxcv/moiday.nvim",
-        config = function()
-            require('config.nvim-moiday')
         end,
     },
     {
