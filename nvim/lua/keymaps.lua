@@ -25,9 +25,6 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
 -- nvim-tree
 vim.keymap.set('n', '<C-n>', ':NvimTreeFindFileToggle<CR>', opts)
 
--- 最近编辑的文件
-vim.keymap.set('n', '-', ':MoidayFiles<CR>', opts)
-
 -----------------
 -- Visual mode --
 -----------------
