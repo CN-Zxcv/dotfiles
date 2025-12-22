@@ -10,7 +10,7 @@ telescope.setup({
                 ['<esc>'] = actions.close,
             }
         },
-        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '*.log', '.svn'},
+        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '*.log', '.svn', '*-storage'},
         path_display = {'filename_first', shorten={exclude={-1, -2, -3}}},
         vimgrep_arguments = { 
             'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', 
@@ -37,6 +37,7 @@ vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
 vim.keymap.set('n', '<S-f>', builtin.grep_string, {})
 vim.keymap.set('n', '-', telescope.extensions['recent-files'].recent_files, {})
 
+
 local expand = vim.fn.expand
 
 -- lua 搜索快捷键
@@ -51,7 +52,7 @@ vim.api.nvim_create_autocmd("FileType", {
                 local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
                 require('telescope.builtin').live_grep({ default_text = str })
             end
-            vim.keymap.set('n', '<C-]>', find_def, {})
+            vim.keymap.set('n', '<C-]>', find_def, {buffer=0, desc='find definition'})
 
             -- 方法调用的地方
             local function find_call()
@@ -59,7 +60,7 @@ vim.api.nvim_create_autocmd("FileType", {
                 local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
                 telescope.extensions.live_grep_args.live_grep_args({ default_text = str })
             end
-            vim.keymap.set('n', '<C-\\>', find_call, {})
+            vim.keymap.set('n', '<C-\\>', find_call, {buffer=0, desc='find call'})
         end
 
     end,

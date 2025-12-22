@@ -60,6 +60,15 @@ require("lazy").setup({
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
+    -- 关闭不活跃的 LSP
+    {
+        "zeioth/garbage-day.nvim",
+        dependencies = "neovim/nvim-lspconfig",
+        event = "VeryLazy",
+        opts = {
+            -- your options here
+        }
+    },
 
 	-- 主题
 	"michalbachowski/vim-wombat256mod",
@@ -75,9 +84,9 @@ require("lazy").setup({
     -- 文件搜索
     {
         "nvim-telescope/telescope.nvim",
-        dependencies = { 
-            'nvim-lua/plenary.nvim', 
-            'nvim-telescope/telescope-live-grep-args.nvim', 
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope-live-grep-args.nvim',
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
             -- 'smartpde/telescope-recent-files',
             'mollerhoj/telescope-recent-files.nvim',
@@ -119,8 +128,24 @@ require("lazy").setup({
         config = function()
             require('config.nvim-align')
         end,
-    }
+    },
 
+    -- 自动保存
+    {
+        'Pocco81/auto-save.nvim',
+        config = function()
+            require("auto-save").setup {
+                -- your custom configuration
+            }
+        end
+    },
+    -- error lens
+    {
+        'mfussenegger/nvim-lint',
+        config = function()
+            require('config.nvim-lint')
+        end
+    },
 
 })
 

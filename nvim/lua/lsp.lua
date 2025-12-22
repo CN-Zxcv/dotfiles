@@ -8,25 +8,40 @@ require('mason').setup({
 	-- }
 })
 
-require('mason-lspconfig').setup({
-	-- A list of servers to automatically install if they're not already installed
-	ensure_installed = { 'lua_ls', 'rust_analyzer' },
-})
+-- require('mason-lspconfig').setup({
+-- 	-- A list of servers to automatically install if they're not already installed
+-- 	-- ensure_installed = { 'lua_ls', 'rust_analyzer' },
+-- })
 
 -- Set different settings for different languages' LSP
 -- LSP list: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- How to use setup({}): https://github.com/neovim/nvim-lspconfig/wiki/Understanding-setup-%7B%7D
 --     - the settings table is sent to the LSP
 --     - on_attach: a lua callback function to run after LSP atteches to a given buffer
-local lspconfig = require('lspconfig')
+-- local lspconfig = require('vim.lsp.config')
 
 -- Customized on_attach function
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+-- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+-- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+-- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+-- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.diagnostic.config({
+    update_in_insert = false,
+    underline = true,
+    signs = true,
+    virtual_text = {
+        prefix = '●',
+        spacing = 0,
+        source = 'always',
+        -- format = function(diagnostic)
+        --     -- return string.format('%s [%s]', diagnostic.message, diagnostic.source)
+        --     -- print(string.format('xxxxx %s xxxx', diagnostic.message))
+        --     return string.format('%s', diagnostic.message)
+        -- end,
+    },
+})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -59,7 +74,10 @@ end
 -- How to add LSP for a specific language?
 -- 1. use `:Mason` to install corresponding LSP
 -- 2. add configuration below
-lspconfig.pylsp.setup({
+vim.lsp.config('*', {
+    on_attach = on_attach,
+})
+vim.lsp.config('pylsp', {
 	on_attach = on_attach,
     settings = {
         pylsp = {
