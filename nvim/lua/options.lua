@@ -28,6 +28,18 @@ vim.opt.hlsearch = false -- do not highlight matches
 vim.opt.ignorecase = true -- ignore case in searches by default
 vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entered
 
+-- True Color
+vim.opt.termguicolors = true
+
+-- 高亮指定列
+vim.opt.colorcolumn = '80,100'
+vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#3a3a3a' })
+vim.api.nvim_create_autocmd('ColorScheme', {
+    pattern = '*',
+    callback = function()
+        vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#3a3a3a' })
+    end,
+})
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = '*',
