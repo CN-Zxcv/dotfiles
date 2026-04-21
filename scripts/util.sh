@@ -19,32 +19,37 @@ echoNotice() {
     echoColor $1 "==== $2 ===="
 }
 
-hasPkg() {
-    test -n "command -v $1"
-}
-
 hasError() {
     test $? != 0
 }
 
-function updatePkgMgr() {
+
+AppInstalled() {
+    test -n "command -v $1"
+}
+
+AppUpdate() {
     local name=$1
     if [ -n "command -v apt-get" ]; then
         sudo apt update
     elif [ -n "command -v yum" ]; then
         sudo yum update
+    elif [ -n "command -v dnf"]; then
+        sudo dnf update
     else
         echoColor $Color_Red "no package manager"
         exit 1;
     fi
 }
 
-function installPkg() {
+AppInstall() {
     local name=$1
     if [ -n "command -v apt-get" ]; then
         sudo apt install -y $name
     elif [ -n "command -v yum" ]; then
         sudo yum install -y $name
+    elif [ -n "command -v dnf" ]; then
+        sudo dnf install -y $name
     else
         echoColor $Color_Red "no no package manager"
         exit 1;
