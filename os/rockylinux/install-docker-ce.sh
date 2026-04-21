@@ -15,7 +15,7 @@ systemctl start docker
 systemctl enable docker
 
 # 修改 Docker 源
-cat > "etc/docker/daemon.json" << 'EOF'
+cat > "/etc/docker/daemon.json" << 'EOF'
 {
     "log-driver": "json-file",
     "log-opts": {
