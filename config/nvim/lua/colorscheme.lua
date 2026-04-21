@@ -10,3 +10,10 @@ if not is_ok then
     return
 end
 
+-- 清除斜体
+vim.cmd([[
+    highlight Comment gui=none
+    highlight String gui=none
+    highlight Todo gui=none
+    highlight StatusLine gui=none
+]])
