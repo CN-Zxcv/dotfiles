@@ -48,7 +48,8 @@ vim.api.nvim_create_autocmd("FileType", {
         do
             -- 方法/值定义的地方
             local function find_def()
-                local reg = 'function.*[ :.]<cword> *\\(|^<cword> *=|[ .:]<cword> *=|message <cword>[ {]'
+                -- local reg = 'function.*[ :.]<cword> *\\(|^<cword> *=|[ .:]<cword> *=|message <cword>[ {]'
+                local reg = 'function[\\w :.]*\\b<cword>\\b *\\(|^\\b<cword>\\b *=|[ .:]\\b<cword>\\b *=|message \\b<cword>\\b[ {]'
                 local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
                 require('telescope.builtin').live_grep({ default_text = str })
             end
@@ -56,7 +57,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
             -- 方法调用的地方
             local function find_call()
-                local reg = '-P "(?<!function )<cword>\\(.*\\)"'
+                local reg = '-P "(?<!function )\\b<cword>\\b\\(.*"'
                 local str = string.gsub(reg, '<cword>', vim.fn.expand('<cword>'))
                 telescope.extensions.live_grep_args.live_grep_args({ default_text = str })
             end
