@@ -1,6 +1,7 @@
 
 # 安装oh-my-zsh
-source ../../scripts/util.sh
+script_dir=$(realpath $(dirname $0))
+source $script_dir/../../scripts/util.sh
 
 dnf install -y wget
 dnf install -y zsh
@@ -14,3 +15,5 @@ if [ ! -d ~/.oh-my-zsh ]; then
     fi
     echoNotice $Color_Cyan "installing oh-my-zsh complete"
 fi
+
+chsh -s $(which zsh)

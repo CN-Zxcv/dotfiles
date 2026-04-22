@@ -1,0 +1,9 @@
+# 声明真彩
+export COLORTERM=truecolor
+# 启用真彩
+export TERM=xterm-256color
+# 启用 nvim 
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+# docker 快捷指令
+alias dlf='docker logs -f --tail 1'
