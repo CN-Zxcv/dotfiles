@@ -93,7 +93,7 @@ cmp.setup({
 
 	-- Set source precedence
 	sources = cmp.config.sources({
-		{ name = 'codeium'},      -- For Codeium AI completion
+		{ name = 'minuet' },      -- For minuet AI completion
 		{ name = 'nvim_lsp' },    -- For nvim-lsp
         { name = 'snippy' },
 		-- { name = 'luasnip' },     -- For luasnip user

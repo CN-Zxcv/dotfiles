@@ -163,7 +163,7 @@ lint.linters.gcc = function(bufnr)
 end
 
 lint.linters_by_ft = {
-  c = { "gcc" },
+  -- c = { "gcc" },
   cpp = { "xmake" },
 }
 
@@ -172,20 +172,20 @@ local function try_quickfix()
     if #lint.get_running() > 0 then
         vim.schedule(try_quickfix)
     else
-        vim.diagnostic.setqflist(t)
         if #vim.diagnostic.get(0) > 0 then
+            vim.diagnostic.setqflist()
             vim.cmd('copen')
         end
     end
 end
 
 -- 保存文件自动触发 lint
-vim.api.nvim_create_autocmd("BufWritePost", {
-    callback = function()
-        lint.try_lint()
-        vim.schedule(try_quickfix)
-    end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     callback = function()
+--         lint.try_lint()
+--         vim.schedule(try_quickfix)
+--     end,
+-- })
 
 -- 创建 :Lint 命令
 vim.api.nvim_create_user_command("Lint", function()

@@ -30,16 +30,15 @@ require("lazy").setup({
 			require("config.nvim-cmp")
 		end,
 	},
-	-- AI 补全
+	-- AI 补全（minuet + 本地 llama-server）
 	{
-		"Exafunction/codeium.nvim",
+		"milanglacier/minuet-ai.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"hrsh7th/nvim-cmp",
 		},
 		config = function()
-			require("codeium").setup({
-			})
+			require("config.minuet")
 		end,
 		event = 'BufEnter',
 	},
@@ -49,7 +48,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup {
+			require("nvim-treesitter").setup {
 				ensure_installed = { "c", "lua", "rust" },
 				highlight = { enable = true, }
 			}
@@ -92,7 +91,7 @@ require("lazy").setup({
             'mollerhoj/telescope-recent-files.nvim',
         },
         config = function()
-			require("config.nvim-telescope")
+            require("config.nvim-telescope")
         end,
     },
     {

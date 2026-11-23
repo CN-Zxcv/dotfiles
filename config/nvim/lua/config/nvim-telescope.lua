@@ -10,7 +10,7 @@ telescope.setup({
                 ['<esc>'] = actions.close,
             }
         },
-        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '*.log', '.svn', '*-storage'},
+        file_ignore_patterns = { 'node_modules', '.git', 'dbdata', '*.log', '.svn', '*-storage', 'tags'},
         path_display = {'filename_first', shorten={exclude={-1, -2, -3}}},
         vimgrep_arguments = { 
             'rg', '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', 
