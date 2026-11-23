@@ -10,24 +10,23 @@ colorizedSubcommands = (
 )
 
 statusColors = {
-    'M'     : "31",     # red
-    '?'     : "37",     # grey
-    'A'     : "32",     # green
-    # 'X'     : "36",     # yellow
-    'C'     : "30;41",  # black on red
-    'D'     : "31",   # bold red
-    '-'     : "31",     # red
-    '+'     : "32",     # green
+    'M'     : "31",     # modify
+    # '?'     : "37",     # not in version
+    'A'     : "32",     # add
+    'C'     : "30;41",  # conflict
+    'D'     : "35",     # delete
+    '-'     : "31",     # content remove
+    '+'     : "32",     # content add
+    '!'     : "36"      # missing
 }
 
 def colorize(line):
-    if type(line) == bytes:
+    if isinstance(line, bytes):
         line = line.decode()
-    for status in statusColors:
-        if line.startswith(status):
-            return ''.join(("\033[", statusColors[status], "m", line, "\033[0m"))
-    else:
-        return line
+    if line and line[0] in statusColors:
+        code = statusColors[line[0]]
+        return f"\033[{code}m{line}\033[0m"
+    return line
 
 def signal_handler(sig, frame):
     sys.exit(1)
