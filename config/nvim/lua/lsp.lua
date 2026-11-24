@@ -35,11 +35,12 @@ vim.diagnostic.config({
         prefix = '●',
         spacing = 0,
         source = 'always',
-        -- format = function(diagnostic)
-        --     -- return string.format('%s [%s]', diagnostic.message, diagnostic.source)
-        --     -- print(string.format('xxxxx %s xxxx', diagnostic.message))
-        --     return string.format('%s', diagnostic.message)
-        -- end,
+        format = function(diagnostic)
+            if diagnostic.code then
+                return string.format('%s [%s]', diagnostic.message, diagnostic.code)
+            end
+            return diagnostic.message
+        end,
     },
 })
 
@@ -77,6 +78,7 @@ end
 vim.lsp.config('*', {
     on_attach = on_attach,
 })
+
 vim.lsp.config('pylsp', {
 	on_attach = on_attach,
     settings = {
