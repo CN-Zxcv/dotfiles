@@ -43,16 +43,26 @@ require("lazy").setup({
 		event = 'BufEnter',
 	},
 
-	-- 语法高亮增强
+	-- 语法高亮增强（nvim-treesitter main 分支：master 已归档，不兼容 nvim 0.12 的 capture 语义）
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter").setup {
-				ensure_installed = { "c", "lua", "rust" },
-				highlight = { enable = true, }
-			}
-		end
+			require("nvim-treesitter").setup()
+			require("nvim-treesitter").install({ "c", "lua", "rust" })
+			-- main 分支不再负责开启高亮：内置 ftplugin 已覆盖 lua/markdown/help 等，
+			-- 这里给 rust 等其余语言补上；已有高亮时不重复启动。
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function(args)
+					if vim.treesitter.highlighter.active[args.buf] then
+						return
+					end
+					pcall(vim.treesitter.start, args.buf)
+				end,
+			})
+		end,
 	},
 
 	-- 滚动时在窗口顶部固定当前区块头（类似 VSCode sticky scroll）
