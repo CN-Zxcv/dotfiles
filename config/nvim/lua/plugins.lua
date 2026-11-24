@@ -55,6 +55,16 @@ require("lazy").setup({
 		end
 	},
 
+	-- 滚动时在窗口顶部固定当前区块头（类似 VSCode sticky scroll）
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		event = "VeryLazy",
+		config = function()
+			require("config.nvim-treesitter-context")
+		end,
+	},
+
 	-- LSP 管理
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
