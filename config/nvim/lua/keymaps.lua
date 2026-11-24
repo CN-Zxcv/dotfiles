@@ -34,7 +34,10 @@ vim.keymap.set('v', '<', '<gv', opts)
 vim.keymap.set('v', '>', '>gv', opts)
 
 -- 代码注释
--- <C-_> == (ctrl /)
--- 不知道为啥不能直接用 '/'; (ctrl v) + (ctrl /) 看到的输出是 _
+-- <C-_> == (ctrl /) 传统终端发送的字节是 0x1F
+-- 新版 nvim(0.9+) + Windows Terminal 走 CSI-u, 会识别为独立的 <C-/>
+-- 两种都绑上, 保证在 VM 和 WSL 都能生效
 vim.keymap.set('n', '<C-_>', ':normal gcc<CR>', opts)
 vim.keymap.set('v', '<C-_>', '<Esc>:normal gvgc<CR>', opts)
+vim.keymap.set('n', '<C-/>', ':normal gcc<CR>', opts)
+vim.keymap.set('v', '<C-/>', '<Esc>:normal gvgc<CR>', opts)
